@@ -1,4 +1,10 @@
+ng new PROJECTNAME --no-strict --prefix cms
+npm install --save bootstrap@3 
+   (then add to angular.json styles array)
+   node_modules/bootstrap/dist/css/bootstrap.min.css
+ng serve
 ng g c whatever-name --skipTests true
+ng g c name --flat (doesn't put it in a new folder)
 
 String Interpolation {{ }}
 Property Binding [property]
