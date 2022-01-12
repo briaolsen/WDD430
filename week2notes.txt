@@ -1,0 +1,14 @@
+ng g c whatever-name --skipTests true
+
+String Interpolation {{ }}
+Property Binding [property]
+Event Binding (event)
+
+$event - fetches event data
+
+*ngIf - structural directive changing the DOM
+
+[ngStyle] - binding to a property of the directive, dynamically update
+[ngClass] - allows us to dynamically add or remove css classes
+*ngFor - loop through and add elements
+
