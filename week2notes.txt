@@ -4,7 +4,8 @@ npm install --save bootstrap@3
    node_modules/bootstrap/dist/css/bootstrap.min.css
 ng serve
 ng g c whatever-name --skipTests true
-ng g c name --flat (doesn't put it in a new folder)
+ng g c name --flat 
+   (doesn't put it in a new folder)
 
 String Interpolation {{ }}
 Property Binding [property]
