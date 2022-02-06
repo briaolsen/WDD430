@@ -1,0 +1,32 @@
+CREATING A SERVICE
+Name: whatevername.service.ts
+Decorator: @Injectable() (optional)
+
+
+USING A SERVICE
+Import it:
+import { WhateverService } from 'filename';
+
+Add providers property to the @Component decorator:
+Note: Services use hierarchical injection. Only add to providers of the top level of hierarchy you will be using the service in. Can be aded to the app.module for the entire app if one instance is used throughout.
+providers: [WhateverService]
+
+
+Add it to the constructor:
+constructor(private whateverService: WhateverService) {}
+
+Access it in the component:
+this.whateverService.whateverFunction();
+
+
+INJECTING A SERVICE INTO ANOTHER SERVICE
+
+Add injected service to the module providers and import it.
+Import the injected service into the receiving service. Add it to the constructor of the receiving service. Attach metadata decorator to the receiving service.
+@Injectable() (import from @angular/core)
+
+SHORTCUT for Angular 6
+Do the following code instead of adding it to module providers.
+@Injectable({providedIn: 'root})
+
+
