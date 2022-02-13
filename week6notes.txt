@@ -1,0 +1,39 @@
+Week 06 - Routes
+
+ROUTING
+Add file - whatever.module.ts
+
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'whatever', component: WhateverComponent }
+
+]
+
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+
+}
+
+Add AppRoutingModule to imports array in the app.module.ts file
+Add <router-outlet></router-outlet> where it determines which page to load
+Add routerLink="/whatever" to the <a> tags in the navigation bar
+Add routerLinkeActive="active" to whichever nav item is active
+Can add    style="cursor: pointer;"    to <a> tags 
+
+CHILD ROUTING
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'whatever', component: WhateverComponent, children: [
+	{ path: ':id', component: WhateverChildComponent }
+  ]}
+]
+
+Add ActivatedRoute to constructor of child component
+Add routes.params.subscribe to ngOnInit()
+Add [routerLink]="[index]" to child <a> tag
+Add @Input() index: number to child component
+Add   let i = index   and    [index]="i"    on parent component html
+
