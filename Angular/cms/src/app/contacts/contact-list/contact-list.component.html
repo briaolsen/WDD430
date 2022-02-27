@@ -12,8 +12,13 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
-            <cms-contact-item *ngFor="let contactEl of contacts"
-            [contact]="contactEl"></cms-contact-item>            
+            <div cdkDropList [cdkDropListData]="contacts">
+
+              <cms-contact-item 
+                *ngFor="let contact of contacts" 
+                [contact]="contact"                
+              ></cms-contact-item>               
+            </div>                       
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@
             [src]="contact.imageUrl" 
             alt="{{ contact.name }}"
             class="img-responsive"
-            style="max-height: 100px">
+            style="max-height: 100px" *ngIf="contact.imageUrl && contact.imageUrl !== ' '">
         </div>        
         <div class="btn-toolbar pull-right">
           <a [routerLink]="['edit']" class="btn btn-primary">Edit</a>
@@ -19,9 +19,20 @@
         <div class="row">
           <div class="col-xs-12">
               <p><b>Email:</b> {{ contact.email }}</p>
-              <p><b>Phone:</b> {{ contact.phone }} </p> 
+              <p><b>Phone:</b> {{ contact.phone }} </p>
           </div>
         </div>
+        <div class="row" *ngIf="contact.group">
+          <div class="col-sm-12 form-group">
+            <label for="groupList">Contacts in Team:</label>
+
+              <cms-contact-item 
+                *ngFor="let contact of contact.group" 
+                [contact]="contact"                
+              ></cms-contact-item> 
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

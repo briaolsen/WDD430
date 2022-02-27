@@ -18,6 +18,19 @@ export class DocumentService {
     this.maxDocumentId = this.getMaxId();
   }
 
+  getMaxId(): number {
+    let maxId = 0;
+
+    for(let document of this.documents) {
+      let currentId = parseInt(document.id);
+      if(currentId > maxId) {
+        maxId = currentId;
+      }
+    }
+
+    return maxId;
+  }
+  
   getDocuments() {
     return this.documents.slice();
   }
@@ -41,19 +54,6 @@ export class DocumentService {
     }
     this.documents.splice(pos, 1);
     this.documentListChangedEvent.next(this.documents.slice());
-  }
-
-  getMaxId(): number {
-    let maxId = 0;
-
-    for(let document of this.documents) {
-      let currentId = parseInt(document.id);
-      if(currentId > maxId) {
-        maxId = currentId;
-      }
-    }
-
-    return maxId;
   }
 
   addDocument(newDocument: Document) {
@@ -80,6 +80,5 @@ export class DocumentService {
     newDocument.id = originalDocument.id;
     this.documents[pos] = newDocument;
     this.documentListChangedEvent.next(this.documents.slice());
-      
   }
 }
