@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class DocumentService {
   documents: Document[] = [];
   maxDocumentId: number;
 
-  constructor( ) { 
-    this.documents = MOCKDOCUMENTS;
-    this.maxDocumentId = this.getMaxId();
+  constructor(private http: HttpClient ) { 
+    this.getDocuments();
+    
   }
 
   getMaxId(): number {
@@ -32,7 +32,40 @@ export class DocumentService {
   }
   
   getDocuments() {
-    return this.documents.slice();
+    this.http
+      .get<Document[]>('https://wdd430-cms-2fbd3-default-rtdb.firebaseio.com/documents.json')
+      .subscribe(
+        (documents: Document[]) => {
+        this.documents = documents;
+        this.maxDocumentId = this.getMaxId();
+        this.documents.sort((a, b) => {
+          let na = a.name.toLowerCase();
+          let nb = b.name.toLowerCase();
+          if(na < nb) {
+            return -1;
+          }
+          if(na > nb) {
+            return 1;
+          }
+          return 0;
+        });
+        this.documentListChangedEvent.next(this.documents.slice());
+      },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+      return this.documents.slice();
+  }
+
+  storeDocuments() {
+    let jsonDocuments = JSON.stringify(this.documents);
+    const header = new HttpHeaders().set('content-type', 'application/json');
+    this.http.put('https://wdd430-cms-2fbd3-default-rtdb.firebaseio.com/documents.json', jsonDocuments, {headers: header})
+    .subscribe( response => {
+      console.log(response);
+      this.documentListChangedEvent.next(this.documents.slice());
+    });
   }
 
   getDocument(id: string){
@@ -53,7 +86,7 @@ export class DocumentService {
       return;
     }
     this.documents.splice(pos, 1);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 
   addDocument(newDocument: Document) {
@@ -64,7 +97,7 @@ export class DocumentService {
     this.maxDocumentId++;
     newDocument.id = '' + this.maxDocumentId;
     this.documents.push(newDocument);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 
   updateDocument(originalDocument: Document, newDocument: Document) {
@@ -79,6 +112,6 @@ export class DocumentService {
 
     newDocument.id = originalDocument.id;
     this.documents[pos] = newDocument;
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 }
