@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form id="book-edit" #f="ngForm" (ngSubmit)="onUpdate(f)">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <label for="url">Cover Url:</label>
+              <input
+                type="text"
+                id="url"
+                name="url"
+                [ngModel]="book?.url"
+                #url="ngModel"
+                class="form-control"
+                size="120"
+                max="120"
+                >
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <label for="title">Title:</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                [ngModel]="book?.title"
+                #title="ngModel"
+                class="form-control required"
+                size="120"
+                max="120"
+                required>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          
+          <div class="row form-group">
+            <div class="col-xs-6">
+              <label for="first">Author First Name:</label>
+              <input
+                type="text"
+                id="first"
+                name="first"
+                [ngModel]="book?.first"
+                #first="ngModel"
+                class="form-control"
+                size="60"
+                max="60"
+              >
+            </div>
+            <div class="col-xs-6">
+              <label for="last">Author Last Name:</label>
+              <input
+                type="text"
+                id="last"
+                name="last"
+                [ngModel]="book?.last"
+                #first="ngModel"
+                class="form-control required"
+                size="60"
+                max="60"
+                required >  
+            </div>
+          </div>
+          
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <label for="series">Series:</label>
+              <input
+                type="text"
+                id="series"
+                name="series"
+                [ngModel]="book?.series"
+                #first="ngModel"
+                class="form-control"
+                size="60"
+                max="60"
+              > 
+            </div> 
+          </div>
+
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <input type="radio" name="read" ng-control="read" [value]="true" [(ngModel)]="bookRead">
+              <label>Read</label>
+              <br/>
+              <input type="radio" name="read" ng-control="read" [value]="false" [(ngModel)]="bookRead">
+              <label>Not Read</label>
+
+            </div> 
+          </div>
+
+          <div class="row form-group">
+            <div class="col-xs-12">
+              <div class="btn-toolbar pull-right">
+                <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+                <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </form>
+    
+  </div>
+</div>

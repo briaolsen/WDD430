@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <img [src]="book.url" alt="{{ book.title }}"  style="height: 300px; width: auto"  *ngIf="book.url && book.url !== ' '">
+            </div>            
+            
+          </div>         
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <h3>{{ book.title }}</h3>
+            </div>            
+          </div>
+      </div>
+
+      <div class="panel-body">
+        <p><b>Author:</b> {{ book.first }} {{ book.last }}</p> 
+        <p *ngIf="book.series"><b>Series:</b> {{ book.series}} </p>
+        <p><b>Read: </b>
+          <span class="glyphicon glyphicon-ok" [style.color]="book.read?'green': 'lightgrey'" style="cursor: pointer" (click)="onRead()"></span>
+        </p>
+        <div class="btn-toolbar pull-right">
+          <a [routerLink]="['edit']" class="btn btn-primary">Edit</a>
+          <a class="btn btn-danger" (click)="onDelete()">Delete</a>        
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

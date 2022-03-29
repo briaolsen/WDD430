@@ -1,0 +1,12 @@
+<a [routerLink]="'/books/'+[book.id]" routerLinkActive="active" class="list-group-item clearfix">
+  <div class="col-md-2">
+    <img [src]="book.url" alt="{{ book.title }}" class="img-responsive" style="max-height: 50px;"  *ngIf="book.url && book.url !== ' '">
+  </div>
+  <div class="col-md-9">
+    <h4 class="list-group-item-heading">{{ book.title }}</h4>
+    <h6 class="list-group-item-heading">{{ book.first }} {{book.last}} </h6>
+  </div>
+  <div class="col-md-1">
+    <div class="glyphicon glyphicon-ok" [style.color]="book.read?'green': 'lightgrey'" (click)="onRead()"></div>
+  </div>
+</a>
